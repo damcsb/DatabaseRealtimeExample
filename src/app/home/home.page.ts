@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { AuthFormData } from './AuthFormData';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,20 +9,18 @@ import { AuthFormData } from './AuthFormData';
 })
 export class HomePage 
   {
-    // ATTS
-    public formData: AuthFormData = new AuthFormData("aromero@contablio.com", "romerito");
-    //
+    
     // CONSTRUCTOR
-    constructor(private auth: AuthService) { }
+    constructor(private auth: AuthService, private router: Router) { }
     //  
     // METHODS
-    login(){
-        return this.auth.doLogin(this.formData.email, this.formData.password)
-          .then((data) => {
-              console.log(data);
-            })
-          .catch((err:Error)=> {
-              console.log(err)
-            });
-      }
+    logout(){
+      this.auth.doLogout().then((data)=>{
+        console.log("Cerrando sesión");
+        this.router.navigate(['/login'])
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
   }
