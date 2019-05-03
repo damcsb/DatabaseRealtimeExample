@@ -8,8 +8,19 @@
 
 <ion-content padding>
   <ion-card>
+    <ion-card-header color="primary">
+      Login
+    </ion-card-header>
     <ion-card-content>
-      Example of FirebaseRealtime APP.
+      <ion-item>
+        <ion-label position="floating">Email:</ion-label>
+        <ion-input [(ngModel)]="value.email"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">Contraseña:</ion-label>
+          <ion-input type="password" [type]="passwordType" [(ngModel)]="value.password"></ion-input>
+      </ion-item>
+      <ion-button expand="block" size="large" (click)="login()">Log in</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
