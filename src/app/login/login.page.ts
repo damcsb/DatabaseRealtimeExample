@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { AuthFormData } from '../AuthFormData';
+import { AuthFormData } from '../../extra/AuthFormData';
 import { Router } from '@angular/router';
 
 
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  public formData: AuthFormData = new AuthFormData;
+  public formData: AuthFormData = new AuthFormData("aromero@contablio.com", "romerito");
     //
     // CONSTRUCTOR
     constructor(private auth: AuthService, private router: Router) { }

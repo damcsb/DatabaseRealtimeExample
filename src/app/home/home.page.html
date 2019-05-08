@@ -1,9 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
+    <ion-title center>Home</ion-title>
+      <a (click)="logout()"  slot="end" color="primary">Log Out</a>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-button (click)="logout()">Log Out</ion-button>
+        <!-- La etiqueta PRE es para mostrar código -->
+        <!-- <pre>
+            {{ tasksService.tasks | async | json }}
+        </pre> -->
+
+        <!-- No es ITEM, es TASK -->
+        <div >
+          <ion-list>
+            <ion-item *ngFor="let task of tasksService.tasks" class="task">
+              <ion-label>
+                <h3>Tarea: {{ task?.description }}</h3>
+                <p>key: <b>{{ task?.key }}</b></p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="InputAlert()" color="secondary">
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
 </ion-content>

@@ -12,8 +12,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 
-import { FirebaseService } from './services/firebase.service';
 import { AuthService } from './services/auth.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +27,7 @@ import { AuthService } from './services/auth.service';
     ],
   providers: [
     AuthService, 
-    FirebaseService,
+    AngularFireDatabase,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
