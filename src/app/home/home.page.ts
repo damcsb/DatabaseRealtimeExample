@@ -3,7 +3,6 @@ import { AuthService } from '../services/auth.service';
 import { TasksService } from '../services/tasks.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Validators } from '@angular/forms';
 
 
 
@@ -16,6 +15,7 @@ import { Validators } from '@angular/forms';
 export class HomePage
   {
   description: string;
+
     //
     //PROPERTYS
 
@@ -39,7 +39,7 @@ export class HomePage
             this.tasksService.subscribe(uid);
         }
         console.log(this.tasksService.tasks);
-    }
+        }
     //  
     // METHODS
     logout(){
@@ -76,7 +76,34 @@ export class HomePage
             return false;
         this.tasksService.create(description);
       }
-    private noAddTaskHandler() {
+    private noAddTaskHandler() { }
 
-      }
+    async AlertaBorrar() {
+      const alert = await this.alertController.create({
+        header: '¿Eliminar',
+        message: '¿Deseas borrar esa tarea?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (err) => {
+              console.log("error");
+            }
+          }, {
+            text: 'Okay',
+            handler: (data: string) => {
+              console.log('Confirm Okay');
+              this.tasksService.ref.remove(data); 
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+    }
+
+    deleteItem(key: string) {    
+      this.tasksService.ref.remove(key); 
+    }
   }

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title center>Home</ion-title>
+    <ion-title>Home</ion-title>
       <a (click)="logout()"  slot="end" color="primary">Log Out</a>
     </ion-toolbar>
 </ion-header>
@@ -11,20 +11,30 @@
             {{ tasksService.tasks | async | json }}
         </pre> -->
 
-        <!-- No es ITEM, es TASK -->
-        <div >
-          <ion-list>
-            <ion-item *ngFor="let task of tasksService.tasks" class="task">
-              <ion-label>
-                <h3>Tarea: {{ task?.description }}</h3>
-                <p>key: <b>{{ task?.key }}</b></p>
-              </ion-label>
+        <ion-list>
+          <ion-item-sliding *ngFor="let task of tasksService.tasks">
+            <ion-item >
+                <ion-label>
+                  <h3>Tarea: {{ task?.description }}</h3>
+                  <p>key: <b>{{ task?.key }}</b></p>
+                </ion-label>
             </ion-item>
-          </ion-list>
-        </div>
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+              <ion-item-options>
+                <ion-item-option color="danger" (click)="AlertaBorrar()">
+                  <ion-icon slot="start" name="trash"></ion-icon>
+                  Borrar
+                </ion-item-option>
+                <ion-item-option color="warning">
+                  <ion-icon slot="start" name="create"></ion-icon>
+                  Editar
+                </ion-item-option>
+              </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+
+          <ion-fab vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button (click)="InputAlert()" color="secondary">
               <ion-icon name="add"></ion-icon>
             </ion-fab-button>
-        </ion-fab>
+          </ion-fab>
 </ion-content>

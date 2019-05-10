@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 
 interface Itask {
@@ -14,6 +14,7 @@ export class TasksService
     public tasks: Itask[] = [];
     public tasksObs: Observable<any[]>;
     public uid: string;
+    public ref: AngularFireList<{}>;
     //
     // CONSTRUCTOR
     constructor(private db: AngularFireDatabase) { }
@@ -21,7 +22,8 @@ export class TasksService
     // METHODS
     subscribe(uid: string) {
         this.uid = uid;
-        this.tasksObs = this.db.list(`usuarios/${ this.uid }/tasks`).snapshotChanges();
+        this.ref = this.db.list(`usuarios/${ this.uid }/tasks`);
+        this.tasksObs = this.ref.snapshotChanges();
         this.tasksObs.subscribe(actions => {
             console.log({ actions })
             this.tasks = []; 
@@ -38,7 +40,9 @@ export class TasksService
       }
     create(description: string) {
         if (!this.uid) return;
-        const itemsRef = this.db.list(`usuarios/${ this.uid }/tasks`);
-        itemsRef.push({ description });
+        this.ref.push({ description });
+      }
+    delete(key: string) {
+        this.ref.remove(key);
       }
   }
